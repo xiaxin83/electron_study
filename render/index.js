@@ -1,5 +1,10 @@
 var fs = require('fs')
-const BrowserWindow = require('@electron/remote').BrowserWindow
+const { BrowserWindow, Menu,getCurrentWindow } = require('@electron/remote')
+// const BrowserWindow = require('@electron/remote')
+
+// console.log(BrowserWindow);
+// const {remote} = require('electron')
+
 
 window.onload = function () {
   let btn = document.getElementById("btn")
@@ -22,4 +27,18 @@ window.onload = function () {
       newWin = null;
     });
   };
+
+  let rightTemplate = [
+    {
+      label: '粘贴',
+    },
+    {
+      label: '复制',
+    }
+  ]
+let m = Menu.buildFromTemplate(rightTemplate)
+  window.addEventListener('contextmenu', function (e) {
+    e.preventDefault()
+    m.popup({window:getCurrentWindow()})
+  })
 }
