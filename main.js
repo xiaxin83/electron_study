@@ -15,7 +15,7 @@ app.on('ready', () => {
   let view = new BrowserView()
   mainWindow.setBrowserView(view)
   view.setBounds({ x: 0, y: 120, width: 1000, height: 680 })
-  view.webContents.loadURL('https://www.baidu.com')
+  view.webContents.loadURL('https://electronjs.org')
   mainWindow.loadFile('index.html')
   mainWindow.openDevTools()
   mainWindow.on('close', () => {
