@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
+    
+    "//livereload": "# 自动刷新",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron ."
   },
