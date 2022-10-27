@@ -3,16 +3,22 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    
     "//livereload": "# 自动刷新",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": " chcp 65001 && electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "author": "xiaxin83",
   "license": "ISC",
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.67",
+    "@electron-forge/maker-deb": "^6.0.0-beta.67",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.67",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.67",
+    "@electron-forge/maker-zip": "^6.0.0-beta.67",
     "@electron/remote": "^2.0.8",
-    "electron": "^21.2.0"
+    "electron": "21.2.0"
   },
   "dependencies": {
     "boolean": "^3.2.0",
@@ -26,6 +32,7 @@
     "define-properties": "^1.1.4",
     "detect-node": "^2.1.0",
     "duplexer3": "^0.1.5",
+    "electron-squirrel-startup": "^1.0.0",
     "encodeurl": "^1.0.2",
     "end-of-stream": "^1.4.4",
     "env-paths": "^2.2.1",
@@ -95,5 +102,32 @@
     "url": "https://github.com/xiaxin83/electron_study/issues"
   },
   "homepage": "https://github.com/xiaxin83/electron_study#readme",
-  "description": ""
+  "description": "MyElectronApp",
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "electron_study"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  }
 }
