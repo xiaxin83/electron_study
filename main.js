@@ -9,16 +9,18 @@ const createWindow = () => {
       nodeIntegration: true,
     },
   });
-  ipcMain.on("set-title", (event, title) => {
+  // 设置监视器
+  function handleSetTitle(event, title) {
     const webContents = event.sender;
     const win = BrowserWindow.fromWebContents(webContents);
     win.setTitle(title);
-  });
+  }
   ipcMain.handle("ping", () => "pong");
   win.loadFile("index.html");
 };
 
 app.whenReady().then(() => {
+  ipcMain.on("set-title", handleSetTitle);
   createWindow();
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
