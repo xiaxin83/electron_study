@@ -1,4 +1,4 @@
-const { contextBridge, ipcRenderer } = require("electron");
+const { contextBridge, ipcRenderer, dialog } = require("electron");
 
 contextBridge.exposeInMainWorld("versions", {
   node: () => process.versions.node,
@@ -12,4 +12,6 @@ contextBridge.exposeInMainWorld("versions", {
     console.log("明天吃火锅！");
   },
   setTitle: (title) => ipcRenderer.send("set-title", title),
+  openFile: () => ipcRenderer.invoke("dialog:openFile"),
+  handleCounter: (callback) => ipcRenderer.on("update-counter", callback),
 });
