@@ -6,6 +6,7 @@ const titleInput = document.getElementById("title");
 const openFile = document.getElementById("openFile");
 const filePathElement = document.getElementById("filePath");
 const counter = document.getElementById("counter");
+const channel = new MessageChannel();
 
 information.innerText = `本应用正在使用Chrome (V${versions.chrome()}),Node.js(V${versions.node()}),和Electron(V${versions.electron()})`;
 
@@ -32,3 +33,11 @@ versions.handleCounter((event, value) => {
   counter.innerText = newValue;
   event.sender.send("counter-value", newValue);
 });
+
+// -----------------
+const port1 = channel.port1;
+const port2 = channel.port2;
+
+port2.postMessage({ answer: 42 });
+
+ipcRenderer.postMessage("port", null, [port2]);

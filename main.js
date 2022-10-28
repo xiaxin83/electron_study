@@ -21,9 +21,10 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
       nodeIntegration: true,
-      sandbox: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
+      preload: path.join(__dirname, "preload.js"),
     },
   });
 
@@ -52,6 +53,16 @@ const createWindow = () => {
 app.whenReady().then(() => {
   ipcMain.on("counter-value", (_event, value) => {
     console.log(value);
+  });
+  ipcMain.on("port", (event) => {
+    // 当我们再主进程中接收到messageport对象,他就成为了
+    // MessagePortMain
+    const port = event.ports[0];
+    port.on("message", (event) => {
+      const data = event.data;
+      console.log(data);
+    });
+    port.start();
   });
   ipcMain.handle("dialog:openFile", handleFileOpen);
   ipcMain.on("set-title", handleSetTitle);
